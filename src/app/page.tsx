@@ -1,3 +1,5 @@
+import React, { ReactNode } from "react";
+import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar";
 import { Card, CardHeader, CardContent } from "../components/ui/card";
 import { Badge } from "../components/ui/badge";
