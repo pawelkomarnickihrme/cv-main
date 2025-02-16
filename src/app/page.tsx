@@ -14,6 +14,26 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
+  function wrapUrlsWithLink(text: string): ReactNode[] {
+    const words = text.split(" ");
+    return words.map((word, index) => {
+      if (
+        word.startsWith("www.") ||
+        word.startsWith("http://") ||
+        word.startsWith("https://")
+      ) {
+        const url = word.startsWith("http") ? word : `https://${word}`;
+        return (
+          <React.Fragment key={index}>
+            <Link href={url} className="text-blue-600 hover:underline">
+              {word}
+            </Link>{" "}
+          </React.Fragment>
+        );
+      }
+      return `${word} `;
+    });
+  }
   return (
     <main className="container relative mx-auto scroll-my-12 overflow-auto p-4 print:p-8 md:p-16">
       <section className="mx-auto w-full max-w-2xl space-y-8 bg-white print:space-y-6">
@@ -120,7 +140,7 @@ export default function Page() {
                   </h4>
                 </CardHeader>
                 <CardContent className="mt-2 text-xs">
-                  {work.description}
+                  {wrapUrlsWithLink(work.description)}
                 </CardContent>
               </Card>
             );
