@@ -24,12 +24,23 @@ export default function Page() {
         word.startsWith("http://") ||
         word.startsWith("https://")
       ) {
-        const url = word.startsWith("http") ? word : `https://${word}`;
+        let url = word;
+        let punctuation = "";
+
+        // Sprawdź, czy słowo kończy się kropką lub przecinkiem
+        if (word.endsWith(".") || word.endsWith(",")) {
+          url = word.slice(0, -1);
+          punctuation = word.slice(-1);
+        }
+
+        url = url.startsWith("http") ? url : `https://${url}`;
+
         return (
           <React.Fragment key={index}>
             <Link href={url} className="text-blue-600 hover:underline">
-              {word}
-            </Link>{" "}
+              {url}
+            </Link>
+            {punctuation}{" "}
           </React.Fragment>
         );
       }
